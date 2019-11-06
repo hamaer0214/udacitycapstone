@@ -12,8 +12,8 @@ dockerpath=alchemistbear/nginx
 # Authenticate & tag
 echo "Docker ID and Image: $dockerpath"
 docker login --username alchemistbear
-docker tag nginx alchemistbear/nginx:20191105
+docker tag udacitycapstone alchemistbear/nginx-hello
 
 # Step 3:
 # Push image to a docker repository
-docker push alchemistbear/nginx:20191105
+docker push alchemistbear/nginx-hello
