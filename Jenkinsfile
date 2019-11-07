@@ -17,7 +17,7 @@ shell node {
         echo "4.Push Docker Image Stage"
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
             sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
-            sh "upload_docker.sh"
+            sh "sed -i 's/<BUILD_TAG>/${build_tag}/' upload_docker.sh"
         }
     }
 }
