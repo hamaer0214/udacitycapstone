@@ -11,7 +11,7 @@ shell node {
         }
     stage('Build') {
         echo "3.Build Docker Image Stage"
-        sh "sed -i 's/<BUILD_TAG>/${build_tag}/'run_docker.sh"
+        sh "sed -i 's/<BUILD_TAG>/${build_tag}/' run_docker.sh"
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
