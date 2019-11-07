@@ -11,7 +11,7 @@ shell node {
         }
     stage('Build') {
         echo "3.Build Docker Image Stage"
-        sh "run_docker.sh"
+        sh "udacitycapstone/run_docker.sh"
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
