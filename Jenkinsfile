@@ -2,10 +2,12 @@ pipeline {
     agent any
     stages {
         stage('Clone') {
-            echo "1.Clone Stage"
-            git url: "https://github.com/hamaer0214/udacitycapstone.git"
-            script {
-                build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+            steps {
+                echo "1.Clone Stage"
+                git url: "https://github.com/hamaer0214/udacitycapstone.git"
+                script {
+                    build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                }
             }
         }  
         stage('Lint HTML') {
