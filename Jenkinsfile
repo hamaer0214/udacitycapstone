@@ -8,7 +8,6 @@ shell node {
     }  
     stage('Lint HTML') {
         echo "2.Test"
-        tidy -q -e *.html
         }
     stage('Build') {
         echo "3.Build Docker Image Stage"
