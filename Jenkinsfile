@@ -5,17 +5,12 @@ shell node {
         script {
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
         }
-    }
-    stage('Test') {
+    }  
+    stage('Lint HTML') {
         echo "2.Test"
-            steps {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
-            }
-            post {
-                always {
-                    junit 'test-reports/results.xml'
-                }
-            }
+              steps {
+                  sh 'tidy -q -e *.html'
+             }  
         }
     stage('Build') {
         echo "3.Build Docker Image Stage"
