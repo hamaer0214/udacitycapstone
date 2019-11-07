@@ -1,13 +1,19 @@
-shell node {
+pipeline {
+    agent any
+    stages {
         stage('Clone') {
-                echo "1.Clone Stage"
-                git url: "https://github.com/hamaer0214/udacitycapstone.git"
-                script {
-                    build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-            }
+                steps {
+                        echo "1.Clone Stage"
+                        git url: "https://github.com/hamaer0214/udacitycapstone.git"
+                        script {
+                            build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                        }
+                }
         }  
         stage('Lint HTML') {
-              sh 'tidy -q -e *.html'
+                steps {
+                        sh 'tidy -q -e *.html'
+                }
          } 
         stage('Build') {
             echo "3.Build Docker Image Stage"
@@ -21,3 +27,4 @@ shell node {
             }
         }
     }
+}
