@@ -1,47 +1,35 @@
-shell node {
+pipeline {
     stage('Clone') {
         echo "1.Clone Stage"
-        git url: "https://github.com/cnych/jenkins-demo.git"
+        git url: "https://github.com/hamaer0214/udacitycapstone.git"
         script {
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
         }
-    }
     stage('Test') {
-      echo "2.Test Stage"
-    }
+        echo "2.Test"
+            agent {
+                docker {
+                    image 'qnib/pytest'
+                }
+            }
+            steps {
+                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
+            }
+            post {
+                always {
+                    junit 'test-reports/results.xml'
+                }
+            }
+        }
     stage('Build') {
         echo "3.Build Docker Image Stage"
-        sh "docker build -t cnych/jenkins-demo:${build_tag} ."
+        dockerpath=alchemistbear/nginx-hello
+        sh "run_docker.sh"
     }
     stage('Push') {
         echo "4.Push Docker Image Stage"
         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
             sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
-            sh "docker push cnych/jenkins-demo:${build_tag}"
+            sh "upload_docker.sh"
         }
     }
-    stage('Deploy') {
-        echo "5. Deploy Stage"
-        def userInput = input(
-            id: 'userInput',
-            message: 'Choose a deploy environment',
-            parameters: [
-                [
-                    $class: 'ChoiceParameterDefinition',
-                    choices: "Dev\nQA\nProd",
-                    name: 'Env'
-                ]
-            ]
-        )
-        echo "This is a deploy step to ${userInput}"
-        sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
-        if (userInput == "Dev") {
-            // deploy dev stuff
-        } else if (userInput == "QA"){
-            // deploy qa stuff
-        } else {
-            // deploy prod stuff
-        }
-        sh "kubectl apply -f k8s.yaml"
-    }
-}
