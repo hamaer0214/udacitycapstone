@@ -34,3 +34,4 @@ shell node {
             sh "upload_docker.sh"
         }
     }
+}
