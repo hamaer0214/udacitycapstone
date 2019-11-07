@@ -1,4 +1,4 @@
-pipeline {
+shell node {
     stage('Clone') {
         echo "1.Clone Stage"
         git url: "https://github.com/hamaer0214/udacitycapstone.git"
