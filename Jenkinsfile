@@ -11,7 +11,6 @@ shell node {
         }
     stage('Build') {
         echo "3.Build Docker Image Stage"
-        dockerpath=alchemistbear/nginx-hello
         sh "run_docker.sh"
     }
     stage('Push') {
