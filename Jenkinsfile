@@ -11,7 +11,6 @@ shell node {
          } 
         stage('Build') {
             echo "3.Build Docker Image Stage"
-            sh 'sudo bash'
             sh "bash run_docker.sh"
         }
         stage('Push') {
