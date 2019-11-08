@@ -15,7 +15,8 @@ shell node {
         }
         stage('Push') {
             echo "4.Push Docker Image Stage"
-            docker.withRegistry('https://hub.docker.com', 'dockerHub'){
+            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]){
+                sh 'cat ${dockerHubPassword} | docker login --username ${dockerHubUser} --password-stdin'
                 sh "sudo bash upload_docker.sh"
         }
     }
