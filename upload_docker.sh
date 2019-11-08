@@ -6,13 +6,12 @@
 # Step 1:
 # Create dockerpath
 # dockerpath=<your docker ID/path>
-script{dockerpath=alchemistbear/nginx-hello1.0}
+#script{dockerpath=alchemistbear/nginx-hello1.0}
 
 # Step 2:  
 # Authenticate & tag
-echo "Docker ID and Image: $dockerpath"
-docker tag udacitycapstone ${dockerpath}
-
+#echo "Docker ID and Image: $dockerpath"
+docker tag udacitycapstone alchemistbear/nginx-hello1.0
 # Step 3:
 # Push image to a docker repository
-sudo docker push ${dockerpath}
+sudo docker push alchemistbear/nginx-hello1.0
