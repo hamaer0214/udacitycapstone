@@ -11,14 +11,13 @@ shell node {
          } 
         stage('Build') {
             echo "3.Build Docker Image Stage"
-            sh 'sudo bash'
-            sh "bash run_docker.sh"
+            sh "sudo bash run_docker.sh"
         }
         stage('Push') {
             echo "4.Push Docker Image Stage"
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                 sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
-                sh "bash upload_docker.sh"
+                sh "sudo bash upload_docker.sh"
         }
     }
 }
