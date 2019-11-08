@@ -15,7 +15,7 @@ shell node {
         }
         stage('Push') {
             echo "4.Push Docker Image Stage"
-            docker.withRegistry('https://registry.hub.docker.com', 'alchemistbear'){
+            docker.withRegistry('https://registry.hub.docker.com', 'dockerHub'){
                 sh "sudo bash upload_docker.sh"
         }
     }
