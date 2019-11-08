@@ -11,13 +11,13 @@ shell node {
          } 
         stage('Build') {
             echo "3.Build Docker Image Stage"
-            sh "sed -i 's/<BUILD_TAG>/${build_tag}/' run_docker.sh"
+            sh "run_docker.sh"
         }
         stage('Push') {
             echo "4.Push Docker Image Stage"
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                 sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
-                sh "sed -i 's/<BUILD_TAG>/${build_tag}/' upload_docker.sh"
+                sh "upload_docker.sh"
         }
     }
 }
