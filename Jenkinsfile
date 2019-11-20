@@ -27,6 +27,7 @@ shell node {
             sh "bash kubectl run --image=alchemistbear/nginx-hello nginx-hello --port=1234"
             sh "bash kubectl get pods"
             sh "bash kubectl port-forward deployments/nginx-hello 8000:80"
+        }
         stage('Update') {
             echo "5.rolling update"
             sh "sudo bash rollingUpdate.sh"
