@@ -19,5 +19,13 @@ shell node {
                 sh 'docker login -u ${dockerHubUser} -p ${dockerHubPassword} '
                 sh "sudo bash upload_docker.sh"
         }
+        stage('Deploy') {
+            echo "4.Deploy by kubectl"
+            sh "sudo bash run_kubernetes.sh"
+        } 
+        stage('Update') {
+            echo "5.rolling update"
+            sh "sudo bash rollingUpdate.sh"
+        }                  
     }
 }
