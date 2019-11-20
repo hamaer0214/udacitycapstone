@@ -21,6 +21,7 @@ shell node {
         }
         stage('Deploy') {
             echo "4.Deploy by kubectl"
+            sh "minikube start"
             sh "sudo bash run_kubernetes.sh"
         } 
         stage('Update') {
