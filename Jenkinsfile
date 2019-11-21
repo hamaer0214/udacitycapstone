@@ -24,9 +24,9 @@ shell node {
             sh "minikube start"
         } 
         stage('Deploy') {
-            sh "sudo bash kubectl run --image=alchemistbear/nginx-hello nginx-hello --port=1234"
-            sh "sudo bash kubectl get pods"
-            sh "sudo bash kubectl port-forward deployments/nginx-hello 8000:80"
+            sh "kubectl run --image=alchemistbear/nginx-hello nginx-hello --port=1234"
+            sh "kubectl get pods"
+            sh "kubectl port-forward deployments/nginx-hello 8000:80"
         }
         stage('Update') {
             echo "5.rolling update"
