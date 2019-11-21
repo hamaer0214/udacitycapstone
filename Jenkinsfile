@@ -23,7 +23,7 @@ shell node {
             echo "4.Deploy by kubectl"
             
         } 
-        stage('Deploy') {
+        stage('pods') {
             
             sh "kubectl get pods"
             
@@ -31,6 +31,11 @@ shell node {
         stage('Update') {
             echo "5.rolling update"
             sh "sudo bash rollingUpdate.sh"
-        }                  
+        }
+        stage('Deploy') {
+            
+            sh "kubectl port-forward deployments/nginx-hello 8000:80"
+            
+        }         
     }
 }
