@@ -16,19 +16,18 @@ shell node {
         stage('Push') {
             echo "4.Push Docker Image Stage"
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]){
-                
+                sh "docker login"
                 sh "sudo bash upload_docker.sh"
         }
         stage('startMinikube') {
-            echo "4.Deploy by kubectl"
-            
+            echo "5.start minikube"
+            sh "minikube start"
         } 
-        stage('pods') {
-            
-            sh "kubectl get pods"
-            
+        stage('Kubectl Run') {
+            sh "kubectl run --image=alchemistbear/nginx-hello nginx-hello --port=1234"
+            sh "kubectl get pods"    
         }
-        stage('Update') {
+        stage('Rolling Update') {
             echo "5.rolling update"
             sh "sudo bash rollingUpdate.sh"
         }
