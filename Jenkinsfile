@@ -24,7 +24,7 @@ shell node {
             
         } 
         stage('Deploy') {
-            sh "kubectl run --image=alchemistbear/nginx-hello nginx-hello --port=1234"
+            
             sh "kubectl get pods"
             sh "kubectl port-forward deployments/nginx-hello 8000:80"
         }
