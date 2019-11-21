@@ -16,12 +16,12 @@ shell node {
         stage('Push') {
             echo "4.Push Docker Image Stage"
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]){
-                # sh 'docker login -u ${dockerHubUser} -p ${dockerHubPassword} '
+                
                 sh "sudo bash upload_docker.sh"
         }
         stage('startMinikube') {
             echo "4.Deploy by kubectl"
-            # sh "minikube start"
+            
         } 
         stage('Deploy') {
             sh "kubectl run --image=alchemistbear/nginx-hello nginx-hello --port=1234"
