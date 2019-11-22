@@ -1,15 +1,15 @@
-#增加pod数量
+#add pods to 3
 kubectl scale --replicas=3 deployment nginx-hello
 
-#验证
+#check status
 kubectl get deployments
 kubectl get pods
 
-#update
+#rolling update
 kubectl set image deployment nginx-hello nginx-hello=alchemistbear/nginx-hello1.0
 
 #rollstatus
 kubectl rollout status deployment nginx-hello
 
-#rollback
+#rollback if needed
 #kubectl rollout undo deployment udacitypod
