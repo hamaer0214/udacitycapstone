@@ -7,6 +7,7 @@ shell node {
                 }
         }  
         stage('Lint HTML') {
+            echo "2.Lint Test"
             sh 'tidy -q -e *.html'
          } 
         stage('Build') {
@@ -24,15 +25,16 @@ shell node {
             sh "minikube start"
         } 
         stage('Kubectl Run') {
+            echo "6.start minikube"
             sh "kubectl run --image=alchemistbear/nginx-hello nginx-hello --port=1234"
             sh "kubectl get pods"    
         }
         stage('Rolling Update') {
-            echo "5.rolling update"
+            echo "7.rolling update"
             sh "sudo bash rollingUpdate.sh"
         }
         stage('Deploy') {
-            
+
             sh "kubectl port-forward deployments/nginx-hello 8000:80"
             
         }         
