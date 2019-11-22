@@ -5,7 +5,7 @@ kubectl scale --replicas=3 deployment nginx-hello
 kubectl get deployments
 kubectl get pods
 
-#rolling update
+#replacing new image using rolling update
 kubectl set image deployment nginx-hello nginx-hello=alchemistbear/nginx-hello1.0
 
 #rollstatus
